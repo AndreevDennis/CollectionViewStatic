@@ -18,7 +18,7 @@ class ViewController: UIViewController {
 
 }
 
-extension ViewController : UICollectionViewDelegate,UICollectionViewDataSource{
+extension ViewController :UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return cellId.count
     }
@@ -28,9 +28,23 @@ extension ViewController : UICollectionViewDelegate,UICollectionViewDataSource{
     }
 }
 
-extension ViewController: UICollectionViewDelegateFlowLayout {  //защита от кривых рук 
+extension ViewController: UICollectionViewDelegateFlowLayout {  //защита от кривых рук
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return cellSize[indexPath.item]
+    }
+}
+
+extension ViewController: UICollectionViewDelegate {
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        cellSize = [CGSize(width: 210, height: 60),
+                    CGSize(width: 180, height: 100),
+                    CGSize(width: 170, height: 80),
+                    CGSize(width: 150, height: 150),]
+        collectionView.reloadItems(at: [indexPath])
+        print("You pressed \(cellId[indexPath.item])")
+
     }
 }
 
