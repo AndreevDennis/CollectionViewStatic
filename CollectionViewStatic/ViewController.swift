@@ -9,12 +9,29 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    let cellId = ["Cell","Cell1","Cell2","Cell3"]
+    var cellSize = Array(repeating: CGSize(width: 170, height: 50), count: 4)
 
     override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
     }
 
-
 }
+
+extension ViewController : UICollectionViewDelegate,UICollectionViewDataSource{
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return cellId.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        return collectionView.dequeueReusableCell(withReuseIdentifier: cellId[indexPath.item], for: indexPath)
+    }
+}
+
+extension ViewController: UICollectionViewDelegateFlowLayout {  //защита от кривых рук 
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return cellSize[indexPath.item]
+    }
+}
+
 
